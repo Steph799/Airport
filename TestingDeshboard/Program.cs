@@ -17,7 +17,7 @@ namespace TestingDeshboard
             connection.On<AirportImage>("ReceiveAirportImage", a => {
                 Console.Clear();
                 ConsoleTables.ConsoleTable.From(a.Processes).Write();
-                Console.WriteLine($"\t\t\t{a.ImageTime}");
+                Console.WriteLine($"\t\t\t{a.ImageTime}");//
             });
             connection.StartAsync();
             while (true)
