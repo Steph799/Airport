@@ -2,14 +2,13 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import axios from 'axios';
 import { createContext, useContext, useState } from 'react';
 
+
 const airportClientContext = createContext();
 export const useAirportClient = () => useContext(airportClientContext);
 
 export const AirportClientProvider = ({ children }) => {
   const baseUrl = 'http://localhost:27397';
   const airportUrl = `${baseUrl}/airport`;
-  const [flightsHistory, setFlightsHistory] = useState([]);
-  
   const [connection] = useState(
     new HubConnectionBuilder()
       .withUrl(`${baseUrl}/notifications`)
@@ -18,23 +17,21 @@ export const AirportClientProvider = ({ children }) => {
   );
 
   const registerToAirportImage = (handler) => {
-    connection.on('ReceiveAirportImage', handler);
+    connection.on('ReceiveAirportImage', handler); 
   };
 
-  const registerToHistory = () => {
-    connection.on('ShowHistory', setFlightsHistory);
+  const registerToHistory = (handler) => {
+    connection.on('ShowHistory', handler);
   };
 
   const startConnection = () => {
     if (connection.state === 'Disconnected') connection.start();
-    else alert('Airport is already activated');
+    else alert("Airport is already activated");
   };
 
   const startAirport = async () => {
     try {
-      const res = await axios.get(`${airportUrl}/start`);
-      registerToHistory();
-      return res;
+      return (await axios.get(`${airportUrl}/start`));
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +55,7 @@ export const AirportClientProvider = ({ children }) => {
 
   const getHistory = async () => {
     try {
-      return await axios.get(`${airportUrl}/gethistorydata`);
+      return (await axios.get(`${airportUrl}/gethistorydata`));
     } catch (error) {
       console.log(error);
     }
@@ -72,8 +69,7 @@ export const AirportClientProvider = ({ children }) => {
     getStatus,
     getProcesses,
     getHistory,
-    registerToHistory,
-    flightsHistory,
+    registerToHistory
   };
   return (
     <airportClientContext.Provider value={AirportService}>

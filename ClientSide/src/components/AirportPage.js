@@ -6,37 +6,27 @@ import TableHistory from '../components/TableHistory';
 
 const AirportPage = (props) => {
   const [airportImage, setAirportImage] = useState();
-  //const [flightsHistory, setFlightsHistory] = useState();
-  // let oldHistory=null;
-  // let updated=false;
-  const [oldHistory, setOldHistory] = useState();
-  // const [update, setUpdate] = useState(false);
+  const [flightsHistory, setFlightsHistory] = useState();
   const airportClient = useAirportClient();
 
   airportClient.registerToAirportImage(setAirportImage);
-//  setOldHistory = airportClient.flightsHistory;
-  // airportClient.registerToHistory(setFlightsHistory);
- //console.log(airportClient.flightsHistory);
 
+  airportClient.registerToHistory(setFlightsHistory);
 
-//  if(airportClient.flightsHistory!==oldHistory) updated=true;
- 
   return (
     <div>
       <Airport processes={airportImage?.processes || []} />
-      <div></div>
-      <br />
-      <br />
-      <div className="tableContainer">
-        <TableProcess processes={airportImage?.processes || []}></TableProcess>
-        <TableHistory
-          history={
-            airportClient.flightsHistory ? airportClient.flightsHistory : []
-          }
-        ></TableHistory>
-      </div>
-      <br />
-      <br />
+
+      <section className="sectionTables">
+        <div className="tableContainer">
+          <TableProcess
+            processes={airportImage?.processes || []}
+          ></TableProcess>
+          <TableHistory
+            history={flightsHistory ? flightsHistory : []}
+          ></TableHistory>
+        </div>
+      </section>
     </div>
   );
 };

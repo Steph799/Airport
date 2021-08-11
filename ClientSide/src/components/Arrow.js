@@ -1,8 +1,11 @@
 import React from 'react'
 
-function Arrow({arrow}) {
+function Arrow({arrow,index}) {
+
+  const arrowStyle = index === "1" ? "arrowLoad" : "arrow";
+
     return (
-      <div className="arrow">
+      <div className={arrowStyle}>
         <span>{arrow}</span>
       </div>
     );

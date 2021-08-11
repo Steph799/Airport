@@ -1,17 +1,17 @@
 import React from 'react';
 
 function TableHistory({ history }) {
-    // when user clicked assign new Date
-
   return (
-    <div className="tableHistory">
-      <h3>History Table</h3>
-      <table>
+    <div className="tableHistoryContainer">
+      <h3>HISTORY</h3>
+      <div className="lineProcess"></div>
+      <div className="tableHistory">
+      <table >
         <tr>
           <th>Flight number</th>
           <th>Process</th>
           <th>Airplane number</th>
-          <th style={{ width: '250px' }}>Time process done</th>
+          <th style={{ width: '250px' }}>End time</th>
         </tr>
         {history.map((flight) => (
           <tr key={flight.flightId}>
@@ -22,7 +22,7 @@ function TableHistory({ history }) {
           </tr>
         ))}
       </table>
-      <div>Last update: {Date()}</div>
+      </div>
     </div>
   );
 }

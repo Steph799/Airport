@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAirportClient } from '../services/AirportService';
-import TableHistory from '../components/TableHistory';
+import TableHistory from './TableHistory';
+import ImageHeader from './ImageHeader/ImageHeader';
+import LegendKey from '../components/LegendKey/LegendKey';
 
 function MainPage(props) {
   const [status, setStatus] = useState('Not connected');
-  const [flightsHistory, setHistory]= useState([]);
   const airportService = useAirportClient();
-
-
-  // const [flightsHistory, setFlightsHistory] = useState();
-  // airportService.registerToHistory(setFlightsHistory);
-  //  console.log(flightsHistory);
    
   const history = useHistory();
 
@@ -36,38 +32,41 @@ function MainPage(props) {
   };
 
   const getHistory = async () => {
-    setHistory(await airportService.getHistory());  
+    await airportService.getHistory();  
   };
+
+  const ClickedHistory = ()=>{
+    props.parentCallBack(Date());
+  }
 
   return (
     <div>
+      <div>
+      <ImageHeader></ImageHeader>
+      </div>
+
       <div className="menu">
-        <img src="/AirportImg.jpg"></img>
-        <div className="btns">
-          <button className="btn" onClick={getAirportImage}>
+        <div>
+          <button className="buttonStyle" onClick={getAirportImage}>
             Start
-          </button> 
-          <button className="btn" onClick={getStatus}>
+          </button>
+
+          <button className="buttonStyle" onClick={getStatus}>
             Get status
           </button>
-          <div>
-            <button className="btn" onClick={getHistory}>
-              Show and update history
-            </button>
-          </div>
+
+          <button className="buttonStyle" onClick={()=>{getHistory(); ClickedHistory()}}>
+            Show and update history
+          </button>
+        </div>
+        <div><h4 className="status">Airport Status : {status}</h4>
+        <LegendKey></LegendKey>
         </div>
       </div>
-      <div>{status}</div>
     </div>
   );
 }
 
 export default MainPage;
 
-// () => history.push('/airport/start')
-//  <button
-//    className="btn"
-//    onClick={() => history.push('/airport/getprocesses')}
-//  >
-//    Show processes
-//  </button>;
+

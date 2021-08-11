@@ -1,12 +1,11 @@
 import React from 'react';
 
 function TableProcess({ processes }) {
-  // const [airportImage, setAirportImage] = useState();
-  //   airportClient.registerToAirportImage(setAirportImage);
-  //if(process.isLanding) arrival : departure
   return (
-    <div className="tableProcess">
-      <h3>Process Table</h3>
+    <div className="tableProcessContainer">
+      <h3>PROCESSES</h3>
+      <div className="lineProcess"></div>
+      <div className="tableProcess">
       <table>
         <thead>
           <tr>
@@ -18,14 +17,14 @@ function TableProcess({ processes }) {
           {processes.map((process) => (
             <tr key={process.flightNum}>
               {process.isLanding ? (
-                <td>
+                <td className="arrivalsTd">
                   Flight: {process.flightNum} Station:
                   {process.stationNum}
                 </td>
               ) : (
                 <React.Fragment>
                   <td></td>
-                  <td>
+                  <td className="departuresTd">
                     Flight: {process.flightNum} Station: {process.stationNum}
                   </td>
                 </React.Fragment>
@@ -34,25 +33,9 @@ function TableProcess({ processes }) {
           ))}
         </tbody>
       </table>
-      <div>{Date()}</div>
+      </div>
     </div>
   );
 }
 
 export default TableProcess;
-{
-  /* {processes.map((process) => (
-          <tr key={process.flightNum}>
-            {process.isLanding ? (
-              <td>
-                Flight: {process.flightNum} Station:
-                {process.stationNum}
-              </td>
-            ) : (
-              <td>
-                Flight: {process.flightNum} Station: {process.stationNum}
-              </td>
-            )}
-          </tr>
-        ))} */
-}

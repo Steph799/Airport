@@ -4,7 +4,8 @@ import Airplane from './Airplane';
 function Station({ number, name, process }) {
   return (
     <div className="rectangle">
-      {number}. {name}
+      {number} {name}
+    
       {process ? (
         <Airplane
           airplane={process.airplaneId}
